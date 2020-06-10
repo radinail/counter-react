@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Joi from "joi";
+import { History } from "history";
+import { toast } from "react-toastify";
 
 import { validate, validateProperty } from "./../utils/validate";
 import { register } from "../../api/users";
@@ -26,17 +28,7 @@ const schema = {
   name: Joi.string().required()
 };
 
-const registerUser = async (user: User) => {
-  const newUser = {
-    email: user.username,
-    password: user.password,
-    name: user.name
-  };
-
-  await register(newUser);
-};
-
-export const RegisterForm = () => {
+export const RegisterForm = ({ history }: { history: History }) => {
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -68,7 +60,19 @@ export const RegisterForm = () => {
     const error = validate<User, Error>(user, schema);
     setError(error);
 
-    await registerUser(user);
+    const newUser = {
+      email: user.username,
+      password: user.password,
+      name: user.name
+    };
+    
+    try{
+      await register(newUser);
+      history.push('/movies');
+    }catch(error){
+      toast.error(error);
+    }
+    
   };
 
   return (

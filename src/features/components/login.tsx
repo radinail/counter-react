@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import Joi from "joi";
-import { History } from "history";
 import { RouteComponentProps } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
@@ -42,7 +41,8 @@ export const Login = ({ history, location }: RouteComponentProps) => {
     if (token) {
       const decoded = jwtDecode(token);
       userContext.setUser(decoded);
-      if (location.state.from) history.push(location.state.from);
+      console.log('location = ', location);
+      if (location.state) history.push(location.state.from);
       else {
         history.push("/");
       }

@@ -24,6 +24,7 @@ export const register = async (user: User) => {
     if (error.response && error.response.status === 400) {
       toast.error(error.response.data);
       logger.log(error);
+      throw(new Error(error.response.data))
     }
   }
 };

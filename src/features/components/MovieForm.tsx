@@ -65,7 +65,7 @@ export const MovieForm = ({
   }, []);
 
   const schema = {
-    title: Joi.string().required(),
+    title: Joi.string().required().min(5),
     genre: Joi.string().required(),
     numberInStock: Joi.number()
       .required()
