@@ -2,7 +2,6 @@ import { toast } from "react-toastify";
 import { AxiosResponse } from "axios";
 
 import { http } from "../services/http";
-import * as config from "../config.json";
 import { logger } from "../services/logger";
 import { Genre } from "./genres";
 
@@ -32,7 +31,7 @@ export type Movie = {
 export const getMovies = async () => {
   try {
     const moviesList: AxiosResponse<Movie[]> = await http.get(
-      `${config.apiEndpoint}/movies`
+      `${process.env.API_ENDPOINT}/movies`
     );
     return moviesList.data;
   } catch (error) {
@@ -47,7 +46,7 @@ export const getMovies = async () => {
 export const addMovie = async (movie: NewMovie) => {
   try {
     const newMovie: AxiosResponse<Movie> = await http.post(
-      `${config.apiEndpoint}/movies`,
+      `${process.env.API_ENDPOINT}/movies`,
       movie
     );
     toast("Your movie has been added ");
@@ -62,7 +61,7 @@ export const addMovie = async (movie: NewMovie) => {
 
 export const deleteMovie = async (id: string) => {
   try {
-    await http.delete(`${config.apiEndpoint}/movies/${id}`, configAuth);
+    await http.delete(`${process.env.API_ENDPOINT}/movies/${id}`, configAuth);
     toast("Your movie has been deleted");
   } catch (error) {
     if (error.response && error.response.status === 404) {
@@ -75,7 +74,7 @@ export const deleteMovie = async (id: string) => {
 export const getMovieById = async (id: string) => {
   try {
     const movie: AxiosResponse<Movie> = await http.get(
-      `${config.apiEndpoint}/movies/${id}`
+      `${process.env.API_ENDPOINT}/movies/${id}`
     );
     return movie.data;
   } catch (error) {
@@ -89,7 +88,7 @@ export const getMovieById = async (id: string) => {
 export const updateMovie = async (movie: NewMovie, id: string) => {
   try {
     const updatedMovie: AxiosResponse<Movie> = await http.put(
-      `${config.apiEndpoint}/movies/${id}`,
+      `${process.env.API_ENDPOINT}/movies/${id}`,
       movie,
       configAuth
     );

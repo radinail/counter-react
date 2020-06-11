@@ -8,6 +8,7 @@ import { logger } from "./services/logger";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 import "react-toastify/dist/ReactToastify.min.css";
+console.log('superman = ', process.env);
 
 logger.init();
 

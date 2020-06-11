@@ -1,7 +1,6 @@
 import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { http } from "../services/http";
-import config from "../config.json";
 import { logger } from "../services/logger";
 
 export type Genre = {
@@ -12,7 +11,7 @@ export type Genre = {
 export const getGenres = async () => {
   try {
     const genres: AxiosResponse<Genre[]> = await http.get(
-      `${config.apiEndpoint}/genres`
+      `${process.env.API_ENDPOINT}/genres`
     );
     return genres.data;
   } catch (error) {
